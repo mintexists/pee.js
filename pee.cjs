@@ -9,8 +9,10 @@ function leak(mb) {
         // Pee some memory into the toilet
         toilet.push(new ImageData(1, 1));
     }
-    
+
     // Giving it a little wiggle does not appear to be necessary in Node, so we can just stop it here :(
 }
 
-exports.leak = leak;
+module.exports = {
+    leak
+}

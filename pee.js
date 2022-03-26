@@ -1,3 +1,5 @@
+import ImageData from '@canvas/image-data'
+
 // Toilet for the pee
 let toilet = [];
 
@@ -7,7 +9,7 @@ export function leak(mb) {
         // Pee some memory into the toilet
         toilet.push(new ImageData(1, 1));
     }
-    
+
     // Give it a little wiggle
     giveItALittleWiggle();
 }
