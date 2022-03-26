@@ -17,8 +17,9 @@ leak(69); // Leaks 69 MB of memory
 ```
 
 ### Node
+https://www.npmjs.com/package/pee.js
 ```console
-npm install pee.js # This does not exist just yet, it will soon!
+npm install pee.js
 ```
 ```js
 const pee = require('pee.js');
