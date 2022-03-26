@@ -26,5 +26,7 @@ pee.leak(420);
 ```
 See `test/test.node.js` for a more in-depth example
 
+**Feature Requests, Bug Reports, and Pull Requests are very welcome**
+
 ## Why should I care?
 You should not. Thank you for your time.
