@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>ImageData test</title>
+</head>
+<body>
+  <script type="module">
+    function success () {
+      document.body.style.backgroundColor = 'green'
+    }
+
+    function error (err) {
+      document.body.style.backgroundColor = 'red'
+      document.body.textContent = err.stack
+    }
+
+    import("./test.js").then(success, error)
+  </script>
+</body>
+</html>

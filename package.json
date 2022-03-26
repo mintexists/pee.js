@@ -1,0 +1,35 @@
+{
+  "name": "pee.js",
+  "version": "1.0.0",
+  "description": "A javascript Library for leaking memory",
+  "main": "pee.node.js",
+  "scripts": {
+    "test": "node ./test/test.node.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/enbyautumn/pee.js.git"
+  },
+  "keywords": [
+    "memory",
+    "memory leak",
+    "pee",
+    "piss",
+    "toilet",
+    "leak",
+    "garbage",
+    "ram",
+    "ram leak",
+    "nodejs",
+    "es6"
+  ],
+  "author": "Mint",
+  "license": "SEE LICENSE IN LICENSE",
+  "bugs": {
+    "url": "https://github.com/enbyautumn/pee.js/issues"
+  },
+  "homepage": "https://github.com/enbyautumn/pee.js#readme",
+  "dependencies": {
+    "@canvas/image-data": "^1.0.0"
+  }
+}
