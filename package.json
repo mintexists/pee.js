@@ -2,7 +2,16 @@
   "name": "pee.js",
   "version": "1.0.0",
   "description": "A javascript Library for leaking memory",
-  "main": "pee.node.js",
+  "type": "module",
+  "main": "pee.cjs",
+  "module": "pee.js",
+  "browser": "pee.js",
+  "exports": {
+    ".": {
+      "require":  "./pee.cjs",
+      "default": "./pee.js"
+    }
+  },
   "scripts": {
     "test": "node ./test/test.node.js"
   },
