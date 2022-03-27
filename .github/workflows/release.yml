@@ -1,0 +1,39 @@
+# based on wild guessing, might not work first try ngl
+
+name: Release
+
+on:
+  push:
+    branches:
+      - master # this tells it to run when commits are made to master
+
+jobs:
+  check_versions:
+    runs-on: ubuntu-latest
+    outputs: # this is kinda fucky in the way it works ngl
+      version: ${{ steps.check_versions.outputs.version }} # this uses the id from the step itself, not the job (they are the same)
+      continue: ${{ steps.check_versions.outputs.continue }}
+    steps:
+      - id: check_versions
+      - uses: actions/checkout@v2
+      - run: git describe --tags --abbrev=0 > /tmp/latest_tag # we get the latest tag and store it
+      - run: jq -r ".version" package.json > /tmp/current_version # we get the current package.json version and store it
+      - run: echo "::set-output name=version::$(cat /tmp/current_version)" # we set the current version as variable for the next job in case we continue 
+      # we compare the two version, if mismatch we want a new release (run next job), if not we dont run the next job
+      - run: cmp --silent /tmp/latest_tag /tmp/current_version && echo "::set-output name=continue::false" || echo "::set-output name=continue::true" 
+  release_on_bump:
+    needs: [check_versions]
+    if: needs.check_versions.outputs.continue == 'true' # this is uses the id from the job, not the step from the job (in case it changes)
+    runs-on: ubuntu-latest
+    seps:
+        uses: actions/checkout@v2
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: ${{ needs.check_versions.outputs.version }}
+          release_name: Release ${{ needs.check_versions.outputs.version }}
+          body: Release ${{ needs.check_versions.outputs.version }}
+          draft: false
+          prerelease: false
