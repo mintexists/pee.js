@@ -25,7 +25,7 @@ jobs:
     needs: [check_versions]
     if: needs.check_versions.outputs.continue == 'true' # this is uses the id from the job, not the step from the job (in case it changes)
     runs-on: ubuntu-latest
-    seps:
+    steps:
         uses: actions/checkout@v2
         id: create_release
         uses: actions/create-release@v1
