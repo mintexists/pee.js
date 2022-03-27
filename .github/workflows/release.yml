@@ -14,8 +14,8 @@ jobs:
       version: ${{ steps.check_versions.outputs.version }} # this uses the id from the step itself, not the job (they are the same)
       continue: ${{ steps.check_versions.outputs.continue }}
     steps:
-      - id: check_versions
       - uses: actions/checkout@v2
+      - id: check_versions
       - run: git describe --tags --abbrev=0 > /tmp/latest_tag # we get the latest tag and store it
       - run: jq -r ".version" package.json > /tmp/current_version # we get the current package.json version and store it
       - run: echo "::set-output name=version::$(cat /tmp/current_version)" # we set the current version as variable for the next job in case we continue 
@@ -26,9 +26,9 @@ jobs:
     if: needs.check_versions.outputs.continue == 'true' # this is uses the id from the job, not the step from the job (in case it changes)
     runs-on: ubuntu-latest
     steps:
-        uses: actions/checkout@v2
-        id: create_release
-        uses: actions/create-release@v1
+      - uses: actions/checkout@v2
+      - uses: actions/create-release@v1
+      - id: create_release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
