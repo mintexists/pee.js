@@ -49,7 +49,7 @@
   "bugs": {
     "url": "https://github.com/enbyautumn/pee.js/issues"
   },
-  "homepage": "https://github.com/enbyautumn/pee.js#readme",
+  "homepage": "https://pee.js.org",
   "devDependencies": {
     "jest": "^27.5.1"
   }
