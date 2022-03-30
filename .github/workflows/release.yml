@@ -41,3 +41,18 @@ jobs:
           body: Release ${{ needs.check_versions_job.outputs.version_output }}
           draft: false
           prerelease: false
+  release_npm_step:
+    runs-on: ubuntu-latest
+    needs: [check_versions_job, release_on_bump]
+    if: needs.check_versions_job.outputs.continue_output == 'true' 
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16 # current LTS
+          registry-url: https://registry.npmjs.org/
+      - run: npm install
+      - run: npm publish --access public
+        env:
+          # you have to set this in the github repository settings, you get it from the npm package settings
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}} 
