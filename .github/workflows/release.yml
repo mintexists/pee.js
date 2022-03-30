@@ -1,0 +1,58 @@
+# based on wild guessing, might not work first try ngl
+
+name: Release
+
+on:
+  push:
+    branches:
+      - master # this tells it to run when commits are made to master
+
+jobs:
+  check_versions_job:
+    runs-on: ubuntu-latest
+    outputs: # this is kinda fucky in the way it works ngl
+      version_output: ${{ steps.check_version_step.outputs.version }}
+      continue_output: ${{ steps.should_continue_step.outputs.continue }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - run: git describe --tags --abbrev=0 > /tmp/latest_tag # we get the latest tag and store it
+      - run: echo "latest git tag is $(cat /tmp/latest_tag)" 
+      - run: jq -r ".version" package.json > /tmp/current_version # we get the current package.json version and store it
+      - run: echo "packge.json version is $(cat /tmp/current_version)" 
+      - id: check_version_step
+        run: echo "::set-output name=version::$(cat /tmp/current_version)" # we set the current version as variable for the next job in case we continue 
+      # we compare the two version, if mismatch we want a new release (run next job), if not we dont run the next job
+      - id: should_continue_step
+        run: cmp --silent /tmp/latest_tag /tmp/current_version && echo "::set-output name=continue::false" || echo "::set-output name=continue::true" 
+  release_on_bump:
+    needs: [check_versions_job]
+    if: needs.check_versions_job.outputs.continue_output == 'true' 
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: ${{ needs.check_versions_job.outputs.version_output }}
+          release_name: Release ${{ needs.check_versions_job.outputs.version_output }}
+          body: Release ${{ needs.check_versions_job.outputs.version_output }}
+          draft: false
+          prerelease: false
+  release_npm_step:
+    runs-on: ubuntu-latest
+    needs: [check_versions_job, release_on_bump]
+    if: needs.check_versions_job.outputs.continue_output == 'true' 
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 16 # current LTS
+          registry-url: https://registry.npmjs.org/
+      - run: npm install
+      - run: npm publish --access public
+        env:
+          # you have to set this in the github repository settings, you get it from the npm package settings
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}} 
