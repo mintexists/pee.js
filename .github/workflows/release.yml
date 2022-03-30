@@ -14,11 +14,14 @@ jobs:
       version: ${{ steps.check_versions.outputs.version }} # this uses the id from the step itself, not the job (they are the same)
       continue: ${{ steps.check_versions.outputs.continue }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
         id: check_versions
-      - run: git fetch --prune --unshallow
       - run: git describe --tags --abbrev=0 > /tmp/latest_tag # we get the latest tag and store it
+      - run: echo "latest git tag is $(cat /tmp/latest_tag)" 
       - run: jq -r ".version" package.json > /tmp/current_version # we get the current package.json version and store it
+      - run: echo "packge.json version is $(cat /tmp/current_version)" 
       - run: echo "::set-output name=version::$(cat /tmp/current_version)" # we set the current version as variable for the next job in case we continue 
       # we compare the two version, if mismatch we want a new release (run next job), if not we dont run the next job
       - run: cmp --silent /tmp/latest_tag /tmp/current_version && echo "::set-output name=continue::false" || echo "::set-output name=continue::true" 
