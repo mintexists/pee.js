@@ -13,8 +13,12 @@
     }
   },
   "scripts": {
-    "test:cjs": "jest --env node --testTimeout 15000 --moduleFileExtensions js --moduleFileExtensions cjs --testMatch '**/*.test.cjs'",
-    "test:mjs": "NODE_OPTIONS=--experimental-vm-modules jest --env jsdom --transform '{}' --testTimeout 15000 --testMatch '**/*.test.js'",
+    "test:cjs:node": "jest --env node --testTimeout 25000 --moduleFileExtensions js --moduleFileExtensions cjs --testMatch '**/*.test.cjs'",
+    "test:cjs:jsdom": "jest --env jsdom --testTimeout 25000 --moduleFileExtensions js --moduleFileExtensions cjs --testMatch '**/*.test.cjs'",
+    "test:cjs": "npm run test:cjs:node && npm run test:cjs:jsdom",
+    "test:mjs:node": "NODE_OPTIONS=--experimental-vm-modules jest --env node --transform '{}' --testTimeout 25000 --testMatch '**/*.test.js'",
+    "test:mjs:jsdom": "NODE_OPTIONS=--experimental-vm-modules jest --env jsdom --transform '{}' --testTimeout 25000 --testMatch '**/*.test.js'",
+    "test:mjs": "npm run test:mjs:node && npm run test:mjs:jsdom",
     "test": "npm run test:cjs && npm run test:mjs"
   },
   "repository": {
