@@ -1,24 +1,13 @@
-import ImageData from '@canvas/image-data'
-
-// Toilet for the pee
-let toilet = [];
-
+// Take a leak and share it with the world
 export function leak(mb) {
-    // Magic Number of Piss
-    for (let i = 0; i < 5242 * mb; i++) {
-        // Pee some memory into the toilet
-        toilet.push(new ImageData(1, 1));
+    // Fill the toilet with pee
+    if (typeof window === "undefined") {
+        // A global toilet is used to make it harder for the poor garbage men to clean up all the pee
+        global.toilet = new Uint8Array(Math.floor(mb * 1024 * 1024)).fill(69);
+    } else {
+        // Pissing on someones windows will definitely be hard to clean up
+        window.toilet = new Uint8Array(Math.floor(mb * 1024 * 1024)).fill(69);
     }
-
-    // Give it a little wiggle
-    giveItALittleWiggle();
-}
-
-function giveItALittleWiggle() {
-    // Prevent the toilet from being flushed
-    for (let pee of toilet) {
-        pee.data;
-    }
-    // Just Keep Wiggling, Just Keep Wiggling
-    window.requestAnimationFrame(giveItALittleWiggle);
+    // The 69 is (the number of the beast - thanks github copilit)
+    // The 69 is also one of the fastest numbers I could fill the array with, tested on https://jsbench.me/z9l1b0ttf6
 }
