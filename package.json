@@ -1,6 +1,6 @@
 {
   "name": "pee.js",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "A javascript Library for leaking memory",
   "type": "module",
   "main": "pee.cjs",
@@ -8,14 +8,15 @@
   "browser": "pee.js",
   "exports": {
     ".": {
-      "require":  "./pee.cjs",
+      "require": "./pee.cjs",
       "default": "./pee.js"
     }
   },
   "scripts": {
-    "test:cjs": "jest --env node --testTimeout 15000 --moduleFileExtensions js --moduleFileExtensions cjs --testMatch '**/*.test.cjs'",
-    "test:mjs": "NODE_OPTIONS=--experimental-vm-modules jest --env jsdom --transform '{}' --testTimeout 15000 --testMatch '**/*.test.js'",
-    "test": "npm run test:cjs && npm run test:mjs"
+    "test:cjs": "npx jest --env node --testTimeout 45000 --moduleFileExtensions js --moduleFileExtensions cjs --testMatch '**/*.test.cjs'",
+    "test:mjs": "NODE_OPTIONS=--experimental-vm-modules npx jest --env jsdom --transform '{}' --testTimeout 45000 --testMatch '**/*.test.js'",
+    "test:esm": "NODE_OPTIONS=--experimental-vm-modules npx jest --env node --transform '{}' --testTimeout 45000 --testMatch '**/*.test.js'",
+    "test": "npm run test:cjs && npm run test:mjs && npm run test:esm"
   },
   "repository": {
     "type": "git",
@@ -32,7 +33,13 @@
     "ram",
     "ram leak",
     "nodejs",
-    "es6"
+    "es6",
+    "cjs",
+    "mjs",
+    "esm",
+    "browser",
+    "cross-platform",
+    "testing"
   ],
   "author": "Mint",
   "license": "SEE LICENSE IN LICENSE.md",
@@ -40,9 +47,6 @@
     "url": "https://github.com/enbyautumn/pee.js/issues"
   },
   "homepage": "https://github.com/enbyautumn/pee.js#readme",
-  "dependencies": {
-    "@canvas/image-data": "^1.0.0"
-  },
   "devDependencies": {
     "jest": "^27.5.1"
   }
