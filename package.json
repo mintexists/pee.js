@@ -13,10 +13,13 @@
     }
   },
   "scripts": {
-    "test:cjs": "npx jest --env node --testTimeout 45000 --moduleFileExtensions js --moduleFileExtensions cjs --testMatch '**/*.test.cjs'",
-    "test:mjs": "NODE_OPTIONS=--experimental-vm-modules npx jest --env jsdom --transform '{}' --testTimeout 45000 --testMatch '**/*.test.js'",
-    "test:esm": "NODE_OPTIONS=--experimental-vm-modules npx jest --env node --transform '{}' --testTimeout 45000 --testMatch '**/*.test.js'",
-    "test": "npm run test:cjs && npm run test:mjs && npm run test:esm"
+    "test:cjs:node": "jest --env node --testTimeout 45000 --moduleFileExtensions js --moduleFileExtensions cjs --testMatch '**/*.test.cjs'",
+    "test:cjs:jsdom": "jest --env jsdom --testTimeout 45000 --moduleFileExtensions js --moduleFileExtensions cjs --testMatch '**/*.test.cjs'",
+    "test:cjs": "npm run test:cjs:node && npm run test:cjs:jsdom",
+    "test:mjs:node": "NODE_OPTIONS=--experimental-vm-modules jest --env node --transform '{}' --testTimeout 45000 --testMatch '**/*.test.js'",
+    "test:mjs:jsdom": "NODE_OPTIONS=--experimental-vm-modules jest --env jsdom --transform '{}' --testTimeout 45000 --testMatch '**/*.test.js'",
+    "test:mjs": "npm run test:mjs:node && npm run test:mjs:jsdom",
+    "test": "npm run test:cjs && npm run test:mjs"
   },
   "repository": {
     "type": "git",
