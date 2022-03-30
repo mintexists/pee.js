@@ -1,6 +1,6 @@
 {
   "name": "pee.js",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "A javascript Library for leaking memory",
   "type": "module",
   "main": "pee.cjs",

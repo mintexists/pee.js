@@ -1,5 +1,5 @@
 # Pee.js
-![Pee.js Logo](logo.png)
+![Pee.js Logo, it says meow uwu pee.js ovo nya](logo.png)
 > Piss away your memories...
 
 # What is it?
@@ -10,20 +10,20 @@ I wanted to make a JavaScript library named pee.js because of a typo and a pun.
 
 ## Usage
 
-This is a hybrid (commonjs and ecmascript module) package that is available on https://www.npmjs.com/package/pee.js
+This is a hybrid package (commonjs and ecmascript module) that is available on the [node package manager registry](https://www.npmjs.com/package/pee.js)
 ```shell
 # To install the package in your project
 npm install --save pee.js
 ```
 
-### Browser [ecmascript] (pee.js)
+### Ecmascript (pee.js)
 ```js
 import { leak } from 'pee.js';
 leak(69); // Leaks 69 MB of memory
 ```
 See `test/pee.test.js` for a more in-depth example
 
-### Node [commonjs] (pee.cjs)
+### Commonjs (pee.cjs)
 ```js
 const { leak } = require('pee.js');
 leak(420); // Leaks 420 MB of memory
