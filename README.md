@@ -19,14 +19,14 @@ npm install --save pee.js
 ### Ecmascript (pee.js)
 ```js
 import { leak } from 'pee.js';
-leak(69); // Leaks 69 MB of memory
+leak(69); // Leaks 69 MiB of memory
 ```
 See `test/pee.test.js` for a more in-depth example
 
 ### Commonjs (pee.cjs)
 ```js
 const { leak } = require('pee.js');
-leak(420); // Leaks 420 MB of memory
+leak(420); // Leaks 420 MiB of memory
 ```
 See `test/pee.test.cjs` for a more in-depth example
 
